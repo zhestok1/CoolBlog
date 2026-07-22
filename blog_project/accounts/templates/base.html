@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Блог{% endblock %}</title>
+
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href='/'>Главная</a>
+            {% if user.is_authenticated %}
+                <span>Привет, <strong>{{ user.username }}</strong>!</span>
+
+                <form action={% url "logout" %} method='post'>
+                    {% csrf_token %}
+                    <button type='submit'>Выйти</button>
+                </form>
+
+            {% else %}
+                <a href={% url "login" %}>Войти</a>
+                <a href={% url "register" %}>Регистрация</a>
+            {% endif %}
+
+        </nav>
+    </header>
+
+    <hr>
+
+    <!-- Вывод всплывающих сообщений (Django Messages) -->
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        <hr>
+    {% endif %}
+
+    <main>
+        {% block content %}{% endblock content %}
+    </main>
+</body>
+</html>

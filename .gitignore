@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Локальные базы данных
+*.sqlite3
+*.sqlite3-journal
+
+# Файлы миграций (обычно их нужно коммитить, кроме локальных правок)
+# migrations/
+# !migrations/__init__.py
+
+# Виртуальные окружения
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Локальные файлы настроек и секреты
+local_settings.py
+local_config.py
+secrets.json
+
+# Среда разработки (IDE)
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+*.sublime-workspace
+
+# Сборка и логи
+logs/
+*.log
+htmlcov/
+.pytest_cache/
+.coverage
+.tox/
+dist/
+build/
+*.egg-info/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Медиа-файлы (загруженные пользователями)
+# media/

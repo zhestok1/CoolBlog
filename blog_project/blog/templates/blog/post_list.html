@@ -17,5 +17,9 @@
         <p>
             <small>Автор: {{post.author}} | {{ post.created_at|date:"d.m.Y в H:i" }}</small>
         </p>
+
+        <p>
+            Комментариев: {{post.comments.count}}
+        </p>
     {% endfor %}
 {% endblock %}

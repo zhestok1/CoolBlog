@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Детальная информация о посте{% endblock %}
+
+{% block content %}
+    <h2>{{post.title}}</h2>
+
+    {% if post.image %}
+        <img src='{{post.image.url}}' style="max-width: 100%; height: auto;">
+    {% endif %}
+
+    <p>
+        {{post.body}}
+    </p>
+
+    <h3>
+        {{ post.created_at|date:"d.m.Y в H:i" }}
+    </h3>
+
+    <h3>Комментарии ({{ post.comments.count }}):</h3>
+    {% for comment in post.comments.all %}
+        <p>Author: {{comment.author.username}}</p>
+        <p>{{comment.body}}</p>
+
+    {%empty%}
+        <p>Пока нет комментариев. Будьте первым!</p>
+    {% endfor %}
+
+    
+
+{% endblock %}

@@ -22,4 +22,42 @@
             </a>
         </article>
     {% endfor %}
+
+
+    <!--НАВИГАЦИЯ-->
+    {% if posts.has_other_pages %}
+        <nav style="display: flex; justify-content: center;">
+            <ul>
+                {% if posts.has_previous %}
+                    <li>
+                        <a href="?page={{ posts.previous_page_number }}" role="button" class="secondary outline">← Назад</a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="#" role="button" class="secondary outline" disabled style="opacity: 0.5;">← Назад</a>
+                    </li>
+                {% endif %}
+
+                <!-- Информация о текущей странице -->
+                <li>
+                    <span style="padding: 0 1rem; line-height: 2.2;">
+                        Страница {{ posts.number }} из {{ posts.paginator.num_pages }}
+                    </span>
+                </li>
+
+                <!-- Кнопка "Вперед" -->
+                {% if posts.has_next %}
+                    <li>
+                        <a href="?page={{ posts.next_page_number }}" role="button" class="secondary outline">Вперед →</a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="#" role="button" class="secondary outline" disabled style="opacity: 0.5;">Вперед →</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
+
+
 {% endblock %}

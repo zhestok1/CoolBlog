@@ -4,20 +4,22 @@
 
 {% block content %}
     {% for post in posts %}
-    <a href={% url "post_detail" post.id %}>
-        <h2>{{post.title}}</h2>
-        {% if post.image %}
-            <img src='{{post.image.url}}' style="max-width: 100%; height: auto;">
-        {% endif %}
-        <p>
-            {{post.body|truncatewords:30}}
-        </p>
-        <p>
-            <small>Автор: {{post.author}} | {{ post.created_at|date:"d.m.Y в H:i" }}</small>
-        </p>
-        <p>
-            Комментариев: {{post.comments.count}}
-        </p>
-    </a>
+        <article>
+            <a href={% url "post_detail" post.id %}>
+                <h2>{{post.title}}</h2>
+                {% if post.image %}
+                    <img src='{{post.image.url}}' style="max-width: 100%; height: auto;">
+                {% endif %}
+                <p>
+                    {{post.body|truncatewords:30}}
+                </p>
+                <p>
+                    <small>Автор: {{post.author}} | {{ post.created_at|date:"d.m.Y в H:i" }}</small>
+                </p>
+                <p>
+                    Комментариев: {{post.comments.count}}
+                </p>
+            </a>
+        </article>
     {% endfor %}
 {% endblock %}

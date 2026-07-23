@@ -3,20 +3,22 @@
 {% block title %}Детальная информация о посте{% endblock %}
 
 {% block content %}
-    <h2>{{post.title}}</h2>
+    <!-- Главная карточка самого поста -->
+    <article>
+        <h2>{{post.title}}</h2>
 
-    {% if post.image %}
-        <img src='{{post.image.url}}' style="max-width: 100%; height: auto;">
-    {% endif %}
+        {% if post.image %}
+            <img src='{{post.image.url}}' style="max-width: 100%; height: auto; border-radius: 8px;">
+        {% endif %}
 
-    <p>
-        {{post.body}}
-    </p>
+        <p>{{post.body}}</p>
 
-    <h3>
-        {{ post.created_at|date:"d.m.Y в H:i" }}
-    </h3>
+        <footer>
+            <small>Опубликовано: {{ post.created_at|date:"d.m.Y в H:i" }}</small>
+        </footer>
+    </article>
 
+    
     <section>
         <h3>Комментарии ({{ post.comments.count }}):</h3>
 
@@ -28,18 +30,26 @@
             </form>
         {% else %}
             <p>
-                <a href={% url "login" %}>Войдите в аккаунт</a>
+                <!-- Добавил кавычки и namespace accounts: -->
+                <a href="{% url 'accounts:login' %}">Войдите в аккаунт</a>, чтобы оставить комментарий.
             </p>
         {% endif %}
 
         {% for comment in post.comments.all %}
-            <p>Author: {{comment.author.username}}</p>
-            <p>{{comment.body}}</p>
-            <p>{{comment.created_at}}</p>
-
-        {%empty%}
+            
+            <article>
+                <header>
+                    <strong>{{comment.author.username}}</strong>
+                    
+                    <small style="float: right;">{{ comment.created_at|date:"d.m.Y H:i" }}</small>
+                </header>
+                
+                <p style="margin: 0;">{{comment.body}}</p>
+            </article>
+            
+        {% empty %}
             <p>Пока нет комментариев. Будьте первым!</p>
         {% endfor %}
     </section>
-
+    
 {% endblock %}

@@ -17,15 +17,29 @@
         {{ post.created_at|date:"d.m.Y в H:i" }}
     </h3>
 
-    <h3>Комментарии ({{ post.comments.count }}):</h3>
-    {% for comment in post.comments.all %}
-        <p>Author: {{comment.author.username}}</p>
-        <p>{{comment.body}}</p>
+    <section>
+        <h3>Комментарии ({{ post.comments.count }}):</h3>
 
-    {%empty%}
-        <p>Пока нет комментариев. Будьте первым!</p>
-    {% endfor %}
+        {% if user.is_authenticated %}
+            <form method='post'>
+                {% csrf_token %}
+                {{form.as_p}}
+                <button type='submit'>Отправить</button>
+            </form>
+        {% else %}
+            <p>
+                <a href={% url "login" %}>Войдите в аккаунт</a>
+            </p>
+        {% endif %}
 
-    
+        {% for comment in post.comments.all %}
+            <p>Author: {{comment.author.username}}</p>
+            <p>{{comment.body}}</p>
+            <p>{{comment.created_at}}</p>
+
+        {%empty%}
+            <p>Пока нет комментариев. Будьте первым!</p>
+        {% endfor %}
+    </section>
 
 {% endblock %}
